@@ -1,11 +1,37 @@
-import React from 'react'
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { jsPDF } from "jspdf";
+import axios from 'axios';
+
 
 export const InvoiceContext = React.createContext()
 
 export const InvoiceProvider = ( {children} ) => {
 
+  const [ currency , setCurrency] = React.useState('GHS')
+  const [ currencySym , setCurrencySym] = React.useState('₵')
+  const [ currencyName , setCurrencyName] = React.useState('Ghanaian cedis')
+  const [ currencyFlag , setCurrencyFlag] = React.useState('🇬🇭')
+
+  function currencyApi () {
+    axios.get(`https://restcountries.com/v3.1/currency/${currency}`).then(resp => {
+      const res = resp.data[0]
+      setCurrencyFlag(res['flag']);
+      setCurrencyName(res['currencies'][currency]['name']);
+      setCurrencySym(res['currencies'][currency]['symbol']);
+
+      console.log(resp.data);
+
+    }).catch((error)=>{
+      console.log(new Error)
+    })
+  }
+
+
+  const handleCurrency = (e) => {
+    setCurrency((e.target.value).toUpperCase());
+  }      
+  
     const [invoice , setInvoice] = React.useState({ 
         invoiceName : "Invoice" , 
         invoiceNumber : '1' ,
@@ -32,7 +58,7 @@ export const InvoiceProvider = ( {children} ) => {
         amount : 0 , 
         hvr : false 
       }])
-    
+
       const [totalAmount , setTotalAmount ] = React.useState(0)
     
       const downloadPdf = () => {
@@ -90,9 +116,38 @@ export const InvoiceProvider = ( {children} ) => {
         }
         setTotalAmount(holdTotal)    
       },[details])
+
+
+      React.useEffect(()=> {
+        currencyApi()
+      },[currency])
     
+      // React.useEffect(()=> {
+        // handleCurrency()
+      // },[currency])      
+
+
     return (
-        <InvoiceContext.Provider value={ [ invoice , details , totalAmount , handleInvoiceChange , deleteDetails , mouseLeave , mouseIn , handleDetails , addNewDetails , downloadPdf  ]} >
+        <InvoiceContext.Provider 
+        value={ [ 
+          invoice , 
+          details , 
+          totalAmount , 
+          handleInvoiceChange , 
+          deleteDetails , 
+          mouseLeave , 
+          mouseIn , 
+          handleDetails , 
+          addNewDetails , 
+          downloadPdf , 
+          handleCurrency,  //10
+          currencyFlag ,  
+          currencyName ,
+          currency,
+          currencySym                           
+          ]} 
+          >
+
             {children}   
         </InvoiceContext.Provider>
     )

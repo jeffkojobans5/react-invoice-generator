@@ -10,6 +10,8 @@ import  { InvoiceContext } from '../contexts/invoice'
 const InvoiceHeader = () => {
     const invoice = useContext(InvoiceContext)[0]
     const handleInvoiceChange = useContext(InvoiceContext)[3]
+    const currency = useContext(InvoiceContext)[13]
+
 
     return (
         <div className="header hidden bg-gray-900 md:flex flex-col md:flex-row"> {/* start of HEADER*/}

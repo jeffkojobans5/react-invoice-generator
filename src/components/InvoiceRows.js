@@ -11,6 +11,7 @@ const InvoiceRows = () => {
     const mouseLeave = useContext(InvoiceContext)[5]
     const mouseIn = useContext(InvoiceContext)[6]
     const handleDetails = useContext(InvoiceContext)[7]
+    const currencySym = useContext(InvoiceContext)[14]
 
     return (
         <>
@@ -29,7 +30,7 @@ const InvoiceRows = () => {
 
                   <div className="quantity w-4/12 mr-1 md:w-2/12">
                   {/* <TextInput name="amount" type="number" placeholder="" value={invoice.amount} change = {(e)=>handleDetails(e , index)} className="w-full text-gray-800 p-1 bg-transparent border-gray-200 rounded border focus:outline-none focus:ring-1 text-center"   />    */}
-                   <p className="text-center mt-1 "> { invoice.amount } </p> 
+                   <p className="text-center mt-1 "> <span className="text-red-800 text-sm"> { currencySym }  </span>{ invoice.amount } </p> 
                   </div>
 
                   <div className="quantity mt-1 w-5">
