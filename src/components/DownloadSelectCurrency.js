@@ -8,12 +8,14 @@ const DownloadSelectCurrency = () => {
     const handleCurrency = useContext(InvoiceContext)[10]
     const currencyFlag = useContext(InvoiceContext)[11]
     const currencyName = useContext(InvoiceContext)[12]
+    const saveInvoice = useContext(InvoiceContext)[15]
         
     
 
     return (
     <>
-      <button type="submit" onClick={downloadPdf} className="bg-red-400 text-white px-2 py-2 rounded w-full block mb-10" >  DOWNLOADS </button>
+      {/* <button type="submit" onClick={downloadPdf} className="bg-red-400 text-white px-2 py-2 rounded w-full block mb-10" >  DOWNLOADS </button> */}
+      <button type="submit" onClick={saveInvoice} className="bg-red-400 text-white px-2 py-2 rounded w-full block mb-10" >  SAVE </button>
             <p>Choose Currency : <span className="text-red-700"> {currencyName} {currencyFlag} </span></p>
             <select className="w-full mt-5 p-2 border rounded focus:outline-none focus:ring-1" name="currency" id="select_currencySymbol" onChange={ (e)=>handleCurrency(e) }>
                                                             <option value="AED" >AED</option>

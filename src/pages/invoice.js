@@ -1,4 +1,5 @@
 // COMPONENTS
+import React from 'react'
 import DownloadSelectCurrency from '../components/DownloadSelectCurrency';
 import AddItemTotal from '../components/AddItemTotal';
 import InvoiceRows from '../components/InvoiceRows'
@@ -7,6 +8,8 @@ import SenderReceiverShipDate from '../components/SenderReceiverShipDate';
 import LogoInvoiceNumber from '../components/LogoInvoiceNumber'
 
 function Invoice() {
+
+
   return (
     <div className="box-border font-Poppins min-h-screen bg-white-100 flex flex-row justify-center items-center p-2">
       <div className="container mt-5 mx-auto w-5/6 m-10 flex flex-col sm:flex-col md:flex-row">

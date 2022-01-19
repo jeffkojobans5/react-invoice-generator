@@ -38,6 +38,7 @@ const InvoiceRows = () => {
                   </div> 
             </div>
               ) /* ends details */
+
          })
         }         
         </>        

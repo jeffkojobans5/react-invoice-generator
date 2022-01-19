@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { jsPDF } from "jspdf";
 import axios from 'axios';
@@ -27,7 +27,7 @@ export const InvoiceProvider = ( {children} ) => {
     })
   }
 
-
+  // U1E3B74AA
   const handleCurrency = (e) => {
     setCurrency((e.target.value).toUpperCase());
   }      
@@ -108,18 +108,41 @@ export const InvoiceProvider = ( {children} ) => {
       const addNewDetails = () => {
         setDetails([...details , { id: uuidv4() , description : "" , quantity : 1 , rate : 0 , amount : 0 , hvr : false }] )
       }
+
+      const [official , setOfficial ] = React.useState({
+        invoice ,
+      })
     
+      const [info , setInfo] = React.useState({
+        "data": {
+            "id": new Date().valueOf(),
+            "firstname": "",
+            "lastname": "",
+            "handle": ""
+        },
+        "meta": {}
+    })
+
+      const saveInvoice = () => {
+        axios.post('http://localhost:1337/api/cals' , info ).then(resp => {
+        console.log('master afa');
+        }).catch((error)=>{
+          console.log('wagyimi dodo');
+        })
+      }
+
       React.useEffect(()=> {
         let holdTotal = 0;
         for (let detail in details) {
           holdTotal += details[detail]['amount']
         }
-        setTotalAmount(holdTotal)    
+        setTotalAmount(holdTotal)  
+        console.log(details);
       },[details])
 
 
       React.useEffect(()=> {
-        currencyApi()
+        currencyApi()                
       },[currency])
     
       // React.useEffect(()=> {
@@ -144,7 +167,8 @@ export const InvoiceProvider = ( {children} ) => {
           currencyFlag ,  
           currencyName ,
           currency,
-          currencySym                           
+          currencySym,
+          saveInvoice                                 
           ]} 
           >
 
